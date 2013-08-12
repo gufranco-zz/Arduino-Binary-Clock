@@ -14,11 +14,11 @@ unsigned long previousMillis = 0;
  * @since  2011-05-06
  */
 void incrementHour() {
-    if (HOUR_PORT >= 23) {
-        HOUR_PORT = 0;
-    } else {
-        HOUR_PORT++;
-    }
+  if (HOUR_PORT >= 23) {
+    HOUR_PORT = 0;
+  } else {
+    HOUR_PORT++;
+  }
 }
 
 /**
@@ -28,11 +28,11 @@ void incrementHour() {
  * @since  2011-05-06
  */
 void incrementMinute() {
-    if (MINUTE_PORT >= 59) {
-        MINUTE_PORT = 0;
-    } else {
-        MINUTE_PORT++;
-    }
+  if (MINUTE_PORT >= 59) {
+    MINUTE_PORT = 0;
+  } else {
+    MINUTE_PORT++;
+  }
 }
 
 /**
@@ -42,11 +42,11 @@ void incrementMinute() {
  * @since  2011-05-06
  */
 void setup() {
-    HOUR_DDR    = B00011111;
-    MINUTE_DDR  = B00111111;
+  HOUR_DDR    = B00011111;
+  MINUTE_DDR  = B00111111;
 
-    attachInterrupt(0, incrementHour, LOW);
-    attachInterrupt(1, incrementMinute, LOW);
+  attachInterrupt(0, incrementHour, LOW);
+  attachInterrupt(1, incrementMinute, LOW);
 }
 
 /**
@@ -56,22 +56,21 @@ void setup() {
  * @since  2011-05-06
  */
 void loop() {
-    unsigned long currentMillis = millis();
+  unsigned long currentMillis = millis();
 
-    if(currentMillis - previousMillis >= 60000) {
-        previousMillis = currentMillis;
+  if(currentMillis - previousMillis >= 60000) {
+    previousMillis = currentMillis;
 
-        if (MINUTE_PORT >= 59) {
-            MINUTE_PORT = 0;
-
-            if (HOUR_PORT >= 23) {
-                HOUR_PORT = 0;
-            } else {
-                HOUR_PORT++;
-            }
-        } else {
-            MINUTE_PORT++;
-        }
+    if (MINUTE_PORT >= 59) {
+      MINUTE_PORT = 0;
+      if (HOUR_PORT >= 23) {
+        HOUR_PORT = 0;
+      } else {
+        HOUR_PORT++;
+      }
+    } else {
+      MINUTE_PORT++;
     }
+  }
 }
 
